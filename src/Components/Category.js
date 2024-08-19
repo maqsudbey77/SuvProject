@@ -38,7 +38,7 @@ function Category() {
         }
       } catch (error) {
         console.error("Error creating category:", error);
-        setError("Failed to create category.");
+        setError("Bu kategorydan   bor");
       }
     } else {
       setValidated(true);
@@ -64,7 +64,7 @@ function Category() {
     event.preventDefault();
     if (editingCategory && editingCategory.name) {
       try {
-        await instance.patch(`/update_category/${editingCategory.id}/`, { name: editingCategory.name });
+        await instance.patch(`/update_category/${editingCategory.uuid}/`, { name: editingCategory.name });
         setEditingCategory(null);
         setShowEditModal(false);
         fetchData();
@@ -79,7 +79,7 @@ function Category() {
     <div className="categoryPage">
       <Form noValidate validated={validated} onSubmit={handleSubmit} className="productForm">
         <Form.Group controlId="categoryName" className="m-3">
-          <Form.Label>Kategoriya</Form.Label>
+          <Form.Label className="textp">Kategoriya</Form.Label>
           <Form.Control
             type="text"
             placeholder="Kategoriya nomini kiriting"
@@ -91,29 +91,31 @@ function Category() {
             Iltimos kategoriya nomini kiriting
           </Form.Control.Feedback>
         </Form.Group>
-        <Button variant="primary" type="submit" className="m-3">
+        <Button variant="primary" type="submit" className="m-3 ">
           Saqlash
         </Button>
       </Form>
 
       <div>
-        <h1>Kategoriyalar listi</h1>
+        <h1 className="texth1">Kategoriyalar listi</h1>
         {categories.length > 0 ? (
           categories.map((cat) => (
             <div className="categoryHolder" key={cat.uuid}>
-              <p>{cat.name}</p>
+              <div>
+                <p>{cat.name}</p>
+              </div>
               <div className="btnContainer">
-                <Button variant="warning" onClick={() => handleEdit(cat)}>
+                <Button className="updateBtn" variant="warning" onClick={() => handleEdit(cat)}>
                   <MdEditDocument />
                 </Button>
-                <Button variant="danger" onClick={() => handleDelete(cat.uuid)}>
+                <Button className="deleteBtn" variant="danger" onClick={() => handleDelete(cat.uuid)}>
                   <MdDelete />
                 </Button>
               </div>
             </div>
           ))
         ) : (
-          <p>Kategoriyalar topilmadi</p>
+          <p className="textp">Kategoriyalar topilmadi</p>
         )}
       </div>
 

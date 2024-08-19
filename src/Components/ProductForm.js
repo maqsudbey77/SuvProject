@@ -8,12 +8,13 @@ function ProductForm({ fetchProducts }) {
   const [category, setCategory] = useState(""); // UUID formatida saqlanadi
   const [image, setImage] = useState("");
   const [minAmount, setMinAmount] = useState(1);
-  const [color, setColor] = useState("#ffffff"); // Default color
+  const [color, setColor] = useState(""); // Rang tanlagich uchun
   const [bonus, setBonus] = useState("");
   const [categories, setCategories] = useState([]);
   const [validated, setValidated] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [showColorPicker, setShowColorPicker] = useState(false); // Rang tanlagichni ko'rsatish holati
 
   useEffect(() => {
     fetchCategories();
@@ -68,13 +69,13 @@ function ProductForm({ fetchProducts }) {
       };
 
       await instance.post("/create_product", newProduct);
-      fetchProducts(); // Refresh product list
+      fetchProducts();
       setName("");
       setCost("");
       setCategory("");
       setImage("");
       setMinAmount(1);
-      setColor("#ffffff");
+      setColor("");
       setBonus("");
       setValidated(false);
     } catch (error) {
@@ -84,6 +85,25 @@ function ProductForm({ fetchProducts }) {
       setIsSubmitting(false);
     }
   };
+
+  const handleColorClick = () => {
+    setShowColorPicker(!showColorPicker);
+  };
+
+  const handleColorChange = (color) => {
+    setColor(color.hex);
+    setShowColorPicker(false); // Rang tanlagichni yopish
+  };
+
+  // Ranglar ro'yxati
+  const colorOptions = [
+    { value: "Oq", label: "Oq" },
+    { value: "Qora", label: "Qora" },
+    { value: "Sariq", label: "Sariq" },
+    { value: "Qizil", label: "Qizil" },
+    { value: "Yashil", label: "Yashil" },
+    { value: "Ko'k", label: "Ko'k" },
+  ];
 
   return (
     <div className="productForm">
@@ -99,7 +119,7 @@ function ProductForm({ fetchProducts }) {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Mahsulot nomi kerak.
+            Mahsulot nomi kiriting.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formProductPrice">
@@ -112,7 +132,7 @@ function ProductForm({ fetchProducts }) {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Mahsulot narxi kerak.
+            Mahsulot narxi kiriting.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formProductCategory">
@@ -131,11 +151,11 @@ function ProductForm({ fetchProducts }) {
             ))}
           </Form.Control>
           <Form.Control.Feedback type="invalid">
-            Kategoriya tanlanishi kerak.
+            Kategoriya tanlang.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formProductMinAmount">
-          <Form.Label>Eng Kam Miqdor</Form.Label>
+          <Form.Label>Miqdor</Form.Label>
           <Form.Control
             type="number"
             min="1"
@@ -144,27 +164,29 @@ function ProductForm({ fetchProducts }) {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Eng kam miqdor kerak.
+            Miqdor kiriting.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="formProductColor">
           <Form.Label>Rang</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Rangni kiriting (hex format)"
+            as="select"
             value={color}
             onChange={(e) => setColor(e.target.value)}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Rang kerak.
-          </Form.Control.Feedback>
+          >
+            <option value="">Rang tanlang</option>
+            {colorOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Form.Control>
         </Form.Group>
         <Form.Group controlId="formProductBonus">
-          <Form.Label>Bonus</Form.Label>
+          <Form.Label>Izoh</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Mahsulot bonusini kiriting"
+            placeholder="Mahsulot izohini kiriting"
             value={bonus}
             onChange={(e) => setBonus(e.target.value)}
           />
@@ -174,7 +196,7 @@ function ProductForm({ fetchProducts }) {
           <Form.Control type="file" onChange={handlePhotoChange} />
         </Form.Group>
         {error && <div className="error-message">{error}</div>}
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" disabled={isSubmitting} className="btn btn-primary">
           {isSubmitting ? "Yuborilmoqda..." : "Qo'shish"}
         </Button>
       </Form>

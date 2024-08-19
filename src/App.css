@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 * {
   margin: 0;
   padding: 0;
@@ -15,12 +18,11 @@
   margin: 20px 0;
 }
 
-.pageContainer {
-  padding: 20px;
-}
+
 
 .productForm {
   width: 300px;
+
 }
 
 .categoryPage {
@@ -31,6 +33,7 @@
 .productPage {
   display: flex;
   justify-content: space-evenly;
+  flex-direction: column;
 }
 .productContainer {
   overflow: hidden;
@@ -38,29 +41,401 @@
   margin: 10px;
   width: 400px;
   display: flex;
+  flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
-img {
-  width: 200px;
-}
+
 
 .productDetail {
   padding: 10px;
 }
 
-.categoryHolder {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
+
+
+
+.text1{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
-.categoryHolder > p {
-  margin: 10px;
+/* productForm.css */
+
+.productForm {
+  max-width: 1000px;
+  width: 400px;
+  margin: 0 auto;
+  padding: 40;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.productForm h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.productForm .form-group {
+
+  margin-bottom: 15px;
+}
+
+.productForm .form-control {
+  
+  border-radius: 5px;
+  padding: 10px;
+  height: 50px;
+  width: 350px;
+
+}
+
+.productForm .form-control:focus {
+  box-shadow: none;
+  border-color: #007bff;
+}
+
+.productForm .error-message {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.productForm .btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.productForm .btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  margin-top: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.productForm .btn-primary:disabled {
+  background-color: #d6d6d6;
+}
+
+
+/* General styles for the Product component */
+.productPage {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productList {
+  width: 100%;
+  max-width: 1200px;
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+}
+
+.productContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.productImage {
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.productDetail {
+  flex: 1;
+}
+
+.productName {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.productList p {
+  margin: 5px 0;
 }
 
 .btnContainer {
-  width: 100px;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.noProducts {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.modalImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .productContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .productImage {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btnContainer {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .productName {
+    font-size: 1.2rem;
+  }
+
+  .productList p {
+    font-size: 0.9rem;
+  }
+
+  .modalImage {
+    max-width: 90%;
+  }
+}
+
+
+/* General styles for the Category component */
+.categoryPage {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f9fa; /* Light background color for the whole page */
+}
+
+.productForm {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+  background-color: #fff; /* White background for the form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for the form */
+}
+
+.productForm .form-control {
+  margin-bottom: 15px; /* Spacing between form elements */
+}
+
+.productForm .form-control:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Light blue shadow */
+}
+
+.productForm .form-control-feedback {
+  color: #dc3545; /* Red color for invalid feedback */
+}
+
+.categoryHolder {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 100%;
+  max-width: 600px;
+  width: 400px;
 }
+
+.categoryHolder p {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.btnContainer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: white;
+  background-color: red;
+}
+
+
+.error-message {
+  color: #dc3545;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .categoryHolder {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btnContainer {
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .productForm {
+    padding: 15px;
+  }
+}
+
+/* App.css */
+
+.App {
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+  padding-right: 50px;
+  padding-left: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter Container */
+.filterContainer {
+  margin-bottom: 20px;
+}
+
+.filterContainer .form-group {
+  margin-bottom: 15px;
+}
+
+.filterContainer .form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filterContainer .form-label {
+  font-weight: bold;
+}
+
+/* Table */
+Table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.thead th {
+  font-size: 15px;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-bordered {
+  border: 1px solid #ddd;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filterContainer .form-group {
+    margin-bottom: 10px;
+  }
+
+  .filterContainer .form-control {
+    font-size: 14px;
+  }
+
+  .table th, .table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .filterContainer .form-group {
+    display: block;
+    width: 100%;
+  }
+
+  .filterContainer .form-control {
+    width: 100%;
+  }
+
+  .table {
+    font-size: 10px;
+  }
+}
+
+.textp{
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.texth1{
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+.Navbar{
+  height: 70px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ color: black;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 8px;
+ font-size: 20px;
+ font-weight: 700;
+ gap: 150px;
+}
+  

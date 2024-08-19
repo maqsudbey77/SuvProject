@@ -4,14 +4,12 @@ import Nav from "react-bootstrap/Nav";
 
 function NavigationBar() {
   return (
-    <Navbar bg="light" data-bs-theme="light">
-      <Container>
-        <Nav className="me-auto">
-          <NavLink href="/">Buyurtmalar</NavLink>
-          <Nav.Link href="/product">Mahsulotlar</Nav.Link>
-          <Nav.Link href="/category">Kategoriya</Nav.Link>
-        </Nav>
-      </Container>
+    <Navbar className="Navbar">
+      
+          <NavLink className="Navlink"  href="/">Buyurtmalar</NavLink>
+          <NavLink  className="Navlink" href="/product">Mahsulotlar</NavLink>
+          <NavLink  className="Navlink" href="/category">Kategoriya</NavLink>
+        
     </Navbar>
   );
 }
